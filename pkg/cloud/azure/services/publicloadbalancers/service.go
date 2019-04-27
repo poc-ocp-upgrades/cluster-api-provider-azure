@@ -1,19 +1,3 @@
-/*
-Copyright 2019 The Kubernetes Authors.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package publicloadbalancers
 
 import (
@@ -23,24 +7,21 @@ import (
 	"sigs.k8s.io/cluster-api-provider-azure/pkg/cloud/azure/actuators"
 )
 
-// Service provides operations on resource groups
 type Service struct {
-	Client network.LoadBalancersClient
-	Scope  *actuators.Scope
+	Client	network.LoadBalancersClient
+	Scope	*actuators.Scope
 }
 
-// getGroupsClient creates a new groups client from subscriptionid.
 func getLoadbalancersClient(subscriptionID string, authorizer autorest.Authorizer) network.LoadBalancersClient {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	loadBalancersClient := network.NewLoadBalancersClient(subscriptionID)
 	loadBalancersClient.Authorizer = authorizer
 	loadBalancersClient.AddToUserAgent(azure.UserAgent)
 	return loadBalancersClient
 }
-
-// NewService creates a new groups service.
 func NewService(scope *actuators.Scope) azure.Service {
-	return &Service{
-		Client: getLoadbalancersClient(scope.SubscriptionID, scope.Authorizer),
-		Scope:  scope,
-	}
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return &Service{Client: getLoadbalancersClient(scope.SubscriptionID, scope.Authorizer), Scope: scope}
 }
