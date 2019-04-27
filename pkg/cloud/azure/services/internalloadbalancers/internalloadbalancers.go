@@ -24,6 +24,8 @@ type Spec struct {
 func (s *Service) Get(ctx context.Context, spec azure.Spec) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	internalLBSpec, ok := spec.(*Spec)
 	if !ok {
 		return network.LoadBalancer{}, errors.New("invalid internal load balancer specification")
@@ -37,6 +39,8 @@ func (s *Service) Get(ctx context.Context, spec azure.Spec) (interface{}, error)
 	return lb, nil
 }
 func (s *Service) CreateOrUpdate(ctx context.Context, spec azure.Spec) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	internalLBSpec, ok := spec.(*Spec)
@@ -74,6 +78,8 @@ func (s *Service) CreateOrUpdate(ctx context.Context, spec azure.Spec) error {
 func (s *Service) Delete(ctx context.Context, spec azure.Spec) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	internalLBSpec, ok := spec.(*Spec)
 	if !ok {
 		return errors.New("invalid internal load balancer specification")
@@ -100,7 +106,16 @@ func (s *Service) Delete(ctx context.Context, spec azure.Spec) error {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

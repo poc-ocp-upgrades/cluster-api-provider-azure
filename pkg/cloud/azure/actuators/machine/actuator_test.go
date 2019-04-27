@@ -31,9 +31,13 @@ var (
 func newClusterProviderSpec() providerv1.AzureClusterProviderSpec {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return providerv1.AzureClusterProviderSpec{ResourceGroup: "resource-group-test", Location: "southcentralus"}
 }
 func providerSpecFromMachine(in *providerv1.AzureMachineProviderSpec) (*machinev1.ProviderSpec, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	bytes, err := yaml.Marshal(in)
@@ -45,6 +49,8 @@ func providerSpecFromMachine(in *providerv1.AzureMachineProviderSpec) (*machinev
 func providerSpecFromCluster(in *providerv1.AzureClusterProviderSpec) (*clusterv1.ProviderSpec, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bytes, err := yaml.Marshal(in)
 	if err != nil {
 		return nil, err
@@ -52,6 +58,8 @@ func providerSpecFromCluster(in *providerv1.AzureClusterProviderSpec) (*clusterv
 	return &clusterv1.ProviderSpec{Value: &runtime.RawExtension{Raw: bytes}}, nil
 }
 func newMachine(t *testing.T, machineConfig providerv1.AzureMachineProviderSpec, labels map[string]string) *machinev1.Machine {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	providerSpec, err := providerSpecFromMachine(&machineConfig)
@@ -63,6 +71,8 @@ func newMachine(t *testing.T, machineConfig providerv1.AzureMachineProviderSpec,
 func newCluster(t *testing.T) *clusterv1.Cluster {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clusterProviderSpec := newClusterProviderSpec()
 	providerSpec, err := providerSpecFromCluster(&clusterProviderSpec)
 	if err != nil {
@@ -71,6 +81,8 @@ func newCluster(t *testing.T) *clusterv1.Cluster {
 	return &clusterv1.Cluster{TypeMeta: metav1.TypeMeta{Kind: "Cluster"}, ObjectMeta: metav1.ObjectMeta{Name: "cluster-test"}, Spec: clusterv1.ClusterSpec{ClusterNetwork: clusterv1.ClusterNetworkingConfig{Services: clusterv1.NetworkRanges{CIDRBlocks: []string{"10.96.0.0/12"}}, Pods: clusterv1.NetworkRanges{CIDRBlocks: []string{"192.168.0.0/16"}}}, ProviderSpec: *providerSpec}}
 }
 func newFakeScope(t *testing.T, label string) *actuators.MachineScope {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	scope := &actuators.Scope{Context: context.Background(), Cluster: newCluster(t), ClusterConfig: &v1alpha1.AzureClusterProviderSpec{ResourceGroup: "dummyResourceGroup", Location: "dummyLocation", CAKeyPair: v1alpha1.KeyPair{Cert: []byte("cert"), Key: []byte("key")}, EtcdCAKeyPair: v1alpha1.KeyPair{Cert: []byte("cert"), Key: []byte("key")}, FrontProxyCAKeyPair: v1alpha1.KeyPair{Cert: []byte("cert"), Key: []byte("key")}, SAKeyPair: v1alpha1.KeyPair{Cert: []byte("cert"), Key: []byte("key")}, DiscoveryHashes: []string{"discoveryhash0"}}, ClusterStatus: &v1alpha1.AzureClusterProviderStatus{}}
@@ -85,11 +97,15 @@ func newFakeScope(t *testing.T, label string) *actuators.MachineScope {
 func newFakeReconciler(t *testing.T) *Reconciler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fakeSuccessSvc := &azure.FakeSuccessService{}
 	fakeVMSuccessSvc := &FakeVMService{Name: "machine-test", ID: "machine-test-ID", ProvisioningState: "Succeeded"}
 	return &Reconciler{scope: newFakeScope(t, v1alpha1.ControlPlane), availabilityZonesSvc: fakeSuccessSvc, networkInterfacesSvc: fakeSuccessSvc, virtualMachinesSvc: fakeVMSuccessSvc, virtualMachinesExtSvc: fakeSuccessSvc}
 }
 func newFakeReconcilerWithScope(t *testing.T, scope *actuators.MachineScope) *Reconciler {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fakeSuccessSvc := &azure.FakeSuccessService{}
@@ -109,10 +125,14 @@ type FakeVMService struct {
 func (s *FakeVMService) Get(ctx context.Context, spec azure.Spec) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.GetCallCount++
 	return compute.VirtualMachine{ID: to.StringPtr(s.ID), Name: to.StringPtr(s.Name), VirtualMachineProperties: &compute.VirtualMachineProperties{ProvisioningState: to.StringPtr(s.ProvisioningState)}}, nil
 }
 func (s *FakeVMService) CreateOrUpdate(ctx context.Context, spec azure.Spec) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.CreateOrUpdateCallCount++
@@ -121,10 +141,14 @@ func (s *FakeVMService) CreateOrUpdate(ctx context.Context, spec azure.Spec) err
 func (s *FakeVMService) Delete(ctx context.Context, spec azure.Spec) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.DeleteCallCount++
 	return nil
 }
 func TestReconcilerSuccess(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fakeReconciler := newFakeReconciler(t)
@@ -142,6 +166,8 @@ func TestReconcilerSuccess(t *testing.T) {
 	}
 }
 func TestReconcileFailure(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fakeFailureSvc := &azure.FakeFailureService{}
@@ -165,6 +191,8 @@ func TestReconcileFailure(t *testing.T) {
 func TestReconcileVMFailedState(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fakeReconciler := newFakeReconciler(t)
 	fakeVMService := &FakeVMService{Name: "machine-test", ID: "machine-test-ID", ProvisioningState: "Failed"}
 	fakeReconciler.virtualMachinesSvc = fakeVMService
@@ -182,6 +210,8 @@ func TestReconcileVMFailedState(t *testing.T) {
 	}
 }
 func TestReconcileVMUpdatingState(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fakeReconciler := newFakeReconciler(t)
@@ -203,6 +233,8 @@ func TestReconcileVMUpdatingState(t *testing.T) {
 func TestReconcileVMSuceededState(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fakeReconciler := newFakeReconciler(t)
 	fakeVMService := &FakeVMService{Name: "machine-test", ID: "machine-test-ID", ProvisioningState: "Succeeded"}
 	fakeReconciler.virtualMachinesSvc = fakeVMService
@@ -222,6 +254,8 @@ func TestReconcileVMSuceededState(t *testing.T) {
 func TestNodeJoinFirstControlPlane(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fakeReconciler := newFakeReconciler(t)
 	if isNodeJoin, err := fakeReconciler.isNodeJoin(); err != nil {
 		t.Errorf("isNodeJoin failed to create machine: %+v", err)
@@ -230,6 +264,8 @@ func TestNodeJoinFirstControlPlane(t *testing.T) {
 	}
 }
 func TestNodeJoinNode(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fakeScope := newFakeScope(t, v1alpha1.Node)
@@ -241,6 +277,8 @@ func TestNodeJoinNode(t *testing.T) {
 	}
 }
 func TestNodeJoinSecondControlPlane(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fakeScope := newFakeScope(t, v1alpha1.ControlPlane)
@@ -260,9 +298,13 @@ type FakeVMCheckZonesService struct{ checkZones []string }
 func (s *FakeVMCheckZonesService) Get(ctx context.Context, spec azure.Spec) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, errors.New("vm not found")
 }
 func (s *FakeVMCheckZonesService) CreateOrUpdate(ctx context.Context, spec azure.Spec) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	vmSpec, ok := spec.(*virtualmachines.Spec)
@@ -282,6 +324,8 @@ func (s *FakeVMCheckZonesService) CreateOrUpdate(ctx context.Context, spec azure
 func (s *FakeVMCheckZonesService) Delete(ctx context.Context, spec azure.Spec) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 
@@ -290,9 +334,13 @@ type FakeAvailabilityZonesService struct{ zonesResponse []string }
 func (s *FakeAvailabilityZonesService) Get(ctx context.Context, spec azure.Spec) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.zonesResponse, nil
 }
 func (s *FakeAvailabilityZonesService) CreateOrUpdate(ctx context.Context, spec azure.Spec) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -300,9 +348,13 @@ func (s *FakeAvailabilityZonesService) CreateOrUpdate(ctx context.Context, spec 
 func (s *FakeAvailabilityZonesService) Delete(ctx context.Context, spec azure.Spec) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func TestAvailabilityZones(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fakeScope := newFakeScope(t, v1alpha1.ControlPlane)
@@ -327,6 +379,8 @@ func TestAvailabilityZones(t *testing.T) {
 func TestCustomUserData(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fakeScope := newFakeScope(t, v1alpha1.Node)
 	userDataSecret := &corev1.Secret{ObjectMeta: metav1.ObjectMeta{Name: "testCustomUserData", Namespace: "dummyNamespace"}, Data: map[string][]byte{"userData": []byte("test-userdata")}}
 	fakeScope.CoreClient = controllerfake.NewFakeClient(userDataSecret)
@@ -345,6 +399,8 @@ func TestCustomUserData(t *testing.T) {
 	}
 }
 func TestCustomDataFailures(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fakeScope := newFakeScope(t, v1alpha1.Node)

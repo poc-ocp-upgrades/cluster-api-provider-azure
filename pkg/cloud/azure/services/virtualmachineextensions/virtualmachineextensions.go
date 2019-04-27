@@ -18,6 +18,8 @@ type Spec struct {
 func (s *Service) Get(ctx context.Context, spec azure.Spec) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	vmExtSpec, ok := spec.(*Spec)
 	if !ok {
 		return compute.VirtualMachineExtension{}, errors.New("invalid vm specification")
@@ -31,6 +33,8 @@ func (s *Service) Get(ctx context.Context, spec azure.Spec) (interface{}, error)
 	return vmExt, nil
 }
 func (s *Service) CreateOrUpdate(ctx context.Context, spec azure.Spec) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	vmExtSpec, ok := spec.(*Spec)
@@ -54,6 +58,8 @@ func (s *Service) CreateOrUpdate(ctx context.Context, spec azure.Spec) error {
 	return err
 }
 func (s *Service) Delete(ctx context.Context, spec azure.Spec) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	vmExtSpec, ok := spec.(*Spec)

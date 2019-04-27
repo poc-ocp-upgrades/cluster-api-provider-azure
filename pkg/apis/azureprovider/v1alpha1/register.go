@@ -17,6 +17,8 @@ var (
 func ClusterConfigFromProviderSpec(providerConfig clusterv1.ProviderSpec) (*AzureClusterProviderSpec, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var config AzureClusterProviderSpec
 	if providerConfig.Value == nil {
 		return &config, nil
@@ -27,6 +29,8 @@ func ClusterConfigFromProviderSpec(providerConfig clusterv1.ProviderSpec) (*Azur
 	return &config, nil
 }
 func ClusterStatusFromProviderStatus(extension *runtime.RawExtension) (*AzureClusterProviderStatus, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if extension == nil {
@@ -41,6 +45,8 @@ func ClusterStatusFromProviderStatus(extension *runtime.RawExtension) (*AzureClu
 func MachineStatusFromProviderStatus(extension *runtime.RawExtension) (*AzureMachineProviderStatus, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if extension == nil {
 		return &AzureMachineProviderStatus{}, nil
 	}
@@ -51,6 +57,8 @@ func MachineStatusFromProviderStatus(extension *runtime.RawExtension) (*AzureMac
 	return status, nil
 }
 func EncodeMachineStatus(status *AzureMachineProviderStatus) (*runtime.RawExtension, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if status == nil {
@@ -66,6 +74,8 @@ func EncodeMachineStatus(status *AzureMachineProviderStatus) (*runtime.RawExtens
 func EncodeMachineSpec(spec *AzureMachineProviderSpec) (*runtime.RawExtension, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if spec == nil {
 		return &runtime.RawExtension{}, nil
 	}
@@ -79,6 +89,8 @@ func EncodeMachineSpec(spec *AzureMachineProviderSpec) (*runtime.RawExtension, e
 func EncodeClusterStatus(status *AzureClusterProviderStatus) (*runtime.RawExtension, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if status == nil {
 		return &runtime.RawExtension{}, nil
 	}
@@ -90,6 +102,8 @@ func EncodeClusterStatus(status *AzureClusterProviderStatus) (*runtime.RawExtens
 	return &runtime.RawExtension{Raw: rawBytes}, nil
 }
 func EncodeClusterSpec(spec *AzureClusterProviderSpec) (*runtime.RawExtension, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if spec == nil {

@@ -40,6 +40,8 @@ type MachineScopeParams struct {
 func NewMachineScope(params MachineScopeParams) (*MachineScope, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	scope, err := NewScope(ScopeParams{AzureClients: params.AzureClients, Client: nil, Cluster: params.Cluster})
 	if err != nil {
 		return nil, err
@@ -73,9 +75,13 @@ type MachineScope struct {
 func (m *MachineScope) Name() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.Machine.Name
 }
 func (m *MachineScope) Namespace() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return m.Machine.Namespace
@@ -83,14 +89,20 @@ func (m *MachineScope) Namespace() string {
 func (m *MachineScope) Role() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.Machine.Labels[v1alpha1.MachineRoleLabel]
 }
 func (m *MachineScope) Location() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return m.Scope.Location()
 }
 func (m *MachineScope) storeMachineSpec(machine *machinev1.Machine) (*machinev1.Machine, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ext, err := v1alpha1.EncodeMachineSpec(m.MachineConfig)
@@ -103,6 +115,8 @@ func (m *MachineScope) storeMachineSpec(machine *machinev1.Machine) (*machinev1.
 func (m *MachineScope) storeMachineStatus(machine *machinev1.Machine) (*machinev1.Machine, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ext, err := v1alpha1.EncodeMachineStatus(m.MachineStatus)
 	if err != nil {
 		return nil, err
@@ -112,6 +126,8 @@ func (m *MachineScope) storeMachineStatus(machine *machinev1.Machine) (*machinev
 	return m.MachineClient.UpdateStatus(machine)
 }
 func (m *MachineScope) Close() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if m.MachineClient == nil {
@@ -128,6 +144,8 @@ func (m *MachineScope) Close() {
 	}
 }
 func MachineConfigFromProviderSpec(clusterClient machineclient.MachineClassesGetter, providerConfig machinev1.ProviderSpec) (*v1alpha1.AzureMachineProviderSpec, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var config v1alpha1.AzureMachineProviderSpec
@@ -158,6 +176,8 @@ func MachineConfigFromProviderSpec(clusterClient machineclient.MachineClassesGet
 func unmarshalProviderSpec(spec *runtime.RawExtension) (*v1alpha1.AzureMachineProviderSpec, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var config v1alpha1.AzureMachineProviderSpec
 	if spec != nil {
 		if err := yaml.Unmarshal(spec.Raw, &config); err != nil {
@@ -168,6 +188,8 @@ func unmarshalProviderSpec(spec *runtime.RawExtension) (*v1alpha1.AzureMachinePr
 	return &config, nil
 }
 func updateScope(coreClient controllerclient.Client, credentialsSecret *apicorev1.SecretReference, scope *Scope) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if credentialsSecret == nil {

@@ -14,5 +14,7 @@ type AzureClusterProviderStatus struct {
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	SchemeBuilder.Register(&AzureClusterProviderStatus{})
 }

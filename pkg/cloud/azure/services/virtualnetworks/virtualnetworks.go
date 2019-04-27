@@ -17,6 +17,8 @@ type Spec struct {
 func (s *Service) Get(ctx context.Context, spec azure.Spec) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	vnetSpec, ok := spec.(*Spec)
 	if !ok {
 		return network.VirtualNetwork{}, errors.New("Invalid VNET Specification")
@@ -30,6 +32,8 @@ func (s *Service) Get(ctx context.Context, spec azure.Spec) (interface{}, error)
 	return vnet, nil
 }
 func (s *Service) CreateOrUpdate(ctx context.Context, spec azure.Spec) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	vnetSpec, ok := spec.(*Spec)
@@ -56,6 +60,8 @@ func (s *Service) CreateOrUpdate(ctx context.Context, spec azure.Spec) error {
 	return err
 }
 func (s *Service) Delete(ctx context.Context, spec azure.Spec) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	vnetSpec, ok := spec.(*Spec)

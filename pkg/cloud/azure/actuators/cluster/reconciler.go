@@ -31,9 +31,13 @@ type Reconciler struct {
 func NewReconciler(scope *actuators.Scope) *Reconciler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &Reconciler{scope: scope, certificatesSvc: certificates.NewService(scope), groupsSvc: groups.NewService(scope), vnetSvc: virtualnetworks.NewService(scope), securityGroupSvc: securitygroups.NewService(scope), routeTableSvc: routetables.NewService(scope), subnetsSvc: subnets.NewService(scope), internalLBSvc: internalloadbalancers.NewService(scope), publicIPSvc: publicips.NewService(scope), publicLBSvc: publicloadbalancers.NewService(scope)}
 }
 func (s *Reconciler) Reconcile() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	actuators.CreateOrUpdateNetworkAPIServerIP(s.scope)
@@ -84,6 +88,8 @@ func (s *Reconciler) Reconcile() error {
 func (s *Reconciler) Delete() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := s.deleteLB(); err != nil {
 		return errors.Wrap(err, "failed to delete load balancer")
 	}
@@ -115,6 +121,8 @@ func (s *Reconciler) Delete() error {
 func (s *Reconciler) deleteLB() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	publicLBSpec := &publicloadbalancers.Spec{Name: azure.GeneratePublicLBName(s.scope.Cluster.Name)}
 	if err := s.publicLBSvc.Delete(s.scope.Context, publicLBSpec); err != nil {
 		if !azure.ResourceNotFound(err) {
@@ -138,6 +146,8 @@ func (s *Reconciler) deleteLB() error {
 func (s *Reconciler) deleteSubnets() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	subnetSpec := &subnets.Spec{Name: azure.GenerateNodeSubnetName(s.scope.Cluster.Name), VnetName: azure.GenerateVnetName(s.scope.Cluster.Name)}
 	if err := s.subnetsSvc.Delete(s.scope.Context, subnetSpec); err != nil {
 		if !azure.ResourceNotFound(err) {
@@ -153,6 +163,8 @@ func (s *Reconciler) deleteSubnets() error {
 	return nil
 }
 func (s *Reconciler) deleteNSG() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sgSpec := &securitygroups.Spec{Name: azure.GenerateNodeSecurityGroupName(s.scope.Cluster.Name)}

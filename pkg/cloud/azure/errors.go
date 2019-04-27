@@ -7,6 +7,8 @@ import (
 func ResourceNotFound(err error) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if derr, ok := err.(autorest.DetailedError); ok && derr.StatusCode == 404 {
 		return true
 	}

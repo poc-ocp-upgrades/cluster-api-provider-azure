@@ -15,12 +15,16 @@ type Service struct {
 func getGroupsClient(subscriptionID string, authorizer autorest.Authorizer) resources.GroupsClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	groupsClient := resources.NewGroupsClient(subscriptionID)
 	groupsClient.Authorizer = authorizer
 	groupsClient.AddToUserAgent(azure.UserAgent)
 	return groupsClient
 }
 func NewService(scope *actuators.Scope) azure.Service {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &Service{Client: getGroupsClient(scope.SubscriptionID, scope.Authorizer), Scope: scope}

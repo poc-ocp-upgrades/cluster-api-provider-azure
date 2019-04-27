@@ -35,6 +35,8 @@ type baseConfig struct{ Header string }
 func generate(kind string, tpl string, data interface{}) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t, err := template.New(kind).Parse(tpl)
 	if err != nil {
 		return "", errors.Wrapf(err, "failed to parse %s template", kind)

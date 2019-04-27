@@ -43,9 +43,13 @@ type Reconciler struct {
 func NewReconciler(scope *actuators.MachineScope) *Reconciler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &Reconciler{scope: scope, availabilityZonesSvc: availabilityzones.NewService(scope.Scope), networkInterfacesSvc: networkinterfaces.NewService(scope.Scope), virtualMachinesSvc: virtualmachines.NewService(scope.Scope), virtualMachinesExtSvc: virtualmachineextensions.NewService(scope.Scope)}
 }
 func (s *Reconciler) Create(ctx context.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if s.scope.Machine.Annotations == nil {
@@ -79,6 +83,8 @@ func (s *Reconciler) Create(ctx context.Context) error {
 func (s *Reconciler) Update(ctx context.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	vmSpec := &virtualmachines.Spec{Name: s.scope.Machine.Name}
 	vmInterface, err := s.virtualMachinesSvc.Get(ctx, vmSpec)
 	if err != nil {
@@ -94,6 +100,8 @@ func (s *Reconciler) Update(ctx context.Context) error {
 	return nil
 }
 func (s *Reconciler) Exists(ctx context.Context) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	exists, err := s.isVMExists(ctx)
@@ -128,6 +136,8 @@ func (s *Reconciler) Exists(ctx context.Context) (bool, error) {
 func (s *Reconciler) Delete(ctx context.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	vmSpec := &virtualmachines.Spec{Name: s.scope.Machine.Name}
 	err := s.virtualMachinesSvc.Delete(ctx, vmSpec)
 	if err != nil {
@@ -143,12 +153,16 @@ func (s *Reconciler) Delete(ctx context.Context) error {
 func isMachineOutdated(machineSpec *v1alpha1.AzureMachineProviderSpec, vm *v1alpha1.VM) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !strings.EqualFold(machineSpec.VMSize, vm.VMSize) {
 		return true
 	}
 	return false
 }
 func (s *Reconciler) isNodeJoin() (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clusterMachines, err := s.scope.MachineClient.List(metav1.ListOptions{})
@@ -188,6 +202,8 @@ func (s *Reconciler) isNodeJoin() (bool, error) {
 func (s *Reconciler) checkControlPlaneMachines() (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	isJoin, err := s.isNodeJoin()
 	if err != nil {
 		return "", errors.Wrapf(err, "failed to determine whether machine should join cluster")
@@ -205,6 +221,8 @@ func (s *Reconciler) checkControlPlaneMachines() (string, error) {
 	return bootstrapToken, nil
 }
 func coreV1Client(kubeconfig string) (corev1.CoreV1Interface, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if kubeconfig == "" {
@@ -225,6 +243,8 @@ func coreV1Client(kubeconfig string) (corev1.CoreV1Interface, error) {
 	return corev1.NewForConfig(cfg)
 }
 func (s *Reconciler) isVMExists(ctx context.Context) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	vmSpec := &virtualmachines.Spec{Name: s.scope.Name()}
@@ -256,6 +276,8 @@ func (s *Reconciler) isVMExists(ctx context.Context) (bool, error) {
 	return true, nil
 }
 func getNodeReference(scope *actuators.MachineScope) (*apicorev1.ObjectReference, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if scope.MachineStatus.VMID == nil {
@@ -290,6 +312,8 @@ func getNodeReference(scope *actuators.MachineScope) (*apicorev1.ObjectReference
 func (s *Reconciler) getVirtualMachineZone(ctx context.Context) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	zonesSpec := &availabilityzones.Spec{VMSize: s.scope.MachineConfig.VMSize}
 	zonesInterface, err := s.availabilityZonesSvc.Get(ctx, zonesSpec)
 	if err != nil {
@@ -311,6 +335,8 @@ func (s *Reconciler) getVirtualMachineZone(ctx context.Context) (string, error) 
 func (s *Reconciler) createNetworkInterface(ctx context.Context, nicName string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	networkInterfaceSpec := &networkinterfaces.Spec{Name: nicName, VnetName: azure.GenerateVnetName(s.scope.Cluster.Name)}
 	switch set := s.scope.Machine.ObjectMeta.Labels[v1alpha1.MachineRoleLabel]; set {
 	case v1alpha1.Node:
@@ -330,6 +356,8 @@ func (s *Reconciler) createNetworkInterface(ctx context.Context, nicName string)
 	return err
 }
 func (s *Reconciler) createVirtualMachine(ctx context.Context, nicName string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	decoded, err := base64.StdEncoding.DecodeString(s.scope.MachineConfig.SSHPublicKey)
@@ -379,6 +407,8 @@ func (s *Reconciler) createVirtualMachine(ctx context.Context, nicName string) e
 	return nil
 }
 func (s *Reconciler) getCustomUserData() (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if s.scope.MachineConfig.UserDataSecret == nil {

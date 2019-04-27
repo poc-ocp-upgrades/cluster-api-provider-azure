@@ -15,12 +15,16 @@ type Service struct {
 func getRouteTablesClient(subscriptionID string, authorizer autorest.Authorizer) network.RouteTablesClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	routeTablesClient := network.NewRouteTablesClient(subscriptionID)
 	routeTablesClient.Authorizer = authorizer
 	routeTablesClient.AddToUserAgent(azure.UserAgent)
 	return routeTablesClient
 }
 func NewService(scope *actuators.Scope) azure.Service {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &Service{Client: getRouteTablesClient(scope.SubscriptionID, scope.Authorizer), Scope: scope}

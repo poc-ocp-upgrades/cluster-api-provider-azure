@@ -13,6 +13,8 @@ import (
 func GetVMStartupScript(machine *actuators.MachineScope, bootstrapToken string) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var startupScript string
 	if !machine.Scope.ClusterConfig.CAKeyPair.HasCertAndKey() {
 		return "", errors.New("failed to run controlplane, missing CACertificate")
@@ -59,6 +61,8 @@ func GetVMStartupScript(machine *actuators.MachineScope, bootstrapToken string) 
 	return startupScript, nil
 }
 func getAzureCloudProviderConfig(machine *actuators.MachineScope) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fmt.Sprintf(`{

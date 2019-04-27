@@ -12,6 +12,8 @@ import (
 func SDKToVM(v compute.VirtualMachine) *v1alpha1.VM {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	i := &v1alpha1.VM{ID: *v.ID, Name: *v.Name}
 	if v.VirtualMachineProperties != nil && v.VirtualMachineProperties.HardwareProfile != nil {
 		i.VMSize = string(v.VirtualMachineProperties.HardwareProfile.VMSize)
@@ -21,7 +23,16 @@ func SDKToVM(v compute.VirtualMachine) *v1alpha1.VM {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

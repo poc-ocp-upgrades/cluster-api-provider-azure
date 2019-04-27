@@ -7,6 +7,8 @@ import (
 func TestIsRepoAtRelease(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCases := []struct {
 		name			string
 		inputGitTreeState	string

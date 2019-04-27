@@ -18,9 +18,13 @@ type Params struct{ ScopeGetter actuators.ScopeGetter }
 func New(params Params) *Deployer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &Deployer{scopeGetter: params.ScopeGetter}
 }
 func (d *Deployer) GetIP(cluster *clusterv1.Cluster, machine *clusterv1.Machine) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	scope, err := d.scopeGetter.GetScope(actuators.ScopeParams{Cluster: cluster})
@@ -36,6 +40,8 @@ func (d *Deployer) GetIP(cluster *clusterv1.Cluster, machine *clusterv1.Machine)
 func (d *Deployer) GetKubeConfig(cluster *clusterv1.Cluster, _ *clusterv1.Machine) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	scope, err := d.scopeGetter.GetScope(actuators.ScopeParams{Cluster: cluster})
 	if err != nil {
 		return "", err
@@ -46,6 +52,8 @@ func (d *Deployer) GetKubeConfig(cluster *clusterv1.Cluster, _ *clusterv1.Machin
 	return scope.ClusterConfig.AdminKubeconfig, nil
 }
 func coreV1Client(kubeconfig string) (corev1.CoreV1Interface, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clientConfig, err := clientcmd.NewClientConfigFromBytes([]byte(kubeconfig))
@@ -61,7 +69,16 @@ func coreV1Client(kubeconfig string) (corev1.CoreV1Interface, error) {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

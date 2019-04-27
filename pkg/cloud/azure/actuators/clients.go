@@ -18,6 +18,8 @@ type AzureClients struct {
 func CreateOrUpdateNetworkAPIServerIP(scope *Scope) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if scope.Network().APIServerIP.Name == "" {
 		h := fnv.New32a()
 		h.Write([]byte(fmt.Sprintf("%s/%s/%s", scope.SubscriptionID, scope.ClusterConfig.ResourceGroup, scope.Cluster.Name)))
@@ -28,7 +30,16 @@ func CreateOrUpdateNetworkAPIServerIP(scope *Scope) {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

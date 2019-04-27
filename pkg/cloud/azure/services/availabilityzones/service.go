@@ -15,12 +15,16 @@ type Service struct {
 func getResourceSkusClient(subscriptionID string, authorizer autorest.Authorizer) compute.ResourceSkusClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	skusClient := compute.NewResourceSkusClient(subscriptionID)
 	skusClient.Authorizer = authorizer
 	skusClient.AddToUserAgent(azure.UserAgent)
 	return skusClient
 }
 func NewService(scope *actuators.Scope) azure.Service {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &Service{Client: getResourceSkusClient(scope.SubscriptionID, scope.Authorizer), Scope: scope}

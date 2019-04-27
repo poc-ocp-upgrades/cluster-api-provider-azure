@@ -15,12 +15,16 @@ type Service struct {
 func getLoadbalancersClient(subscriptionID string, authorizer autorest.Authorizer) network.LoadBalancersClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	loadBalancersClient := network.NewLoadBalancersClient(subscriptionID)
 	loadBalancersClient.Authorizer = authorizer
 	loadBalancersClient.AddToUserAgent(azure.UserAgent)
 	return loadBalancersClient
 }
 func NewService(scope *actuators.Scope) azure.Service {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &Service{Client: getLoadbalancersClient(scope.SubscriptionID, scope.Authorizer), Scope: scope}

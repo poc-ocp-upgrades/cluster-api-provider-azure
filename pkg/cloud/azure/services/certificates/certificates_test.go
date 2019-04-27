@@ -14,6 +14,8 @@ import (
 func TestCreateOrUpdateCertificates(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	scope := actuators.Scope{ClusterConfig: &v1alpha1.AzureClusterProviderSpec{Location: "eastus"}, ClusterStatus: &v1alpha1.AzureClusterProviderStatus{}, Cluster: &clusterv1.Cluster{ObjectMeta: metav1.ObjectMeta{Name: "dummyclustername"}}}
 	scope.Network().APIServerIP.DNSName = "dummydnsname"
 	certsSvc := NewService(&scope)

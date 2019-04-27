@@ -16,6 +16,8 @@ import (
 func providerSpecFromMachine(in *providerv1.AzureMachineProviderSpec) (*machinev1.ProviderSpec, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bytes, err := yaml.Marshal(in)
 	if err != nil {
 		return nil, err
@@ -23,6 +25,8 @@ func providerSpecFromMachine(in *providerv1.AzureMachineProviderSpec) (*machinev
 	return &machinev1.ProviderSpec{Value: &runtime.RawExtension{Raw: bytes}}, nil
 }
 func newMachine(t *testing.T) *machinev1.Machine {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	machineConfig := providerv1.AzureMachineProviderSpec{}
@@ -35,6 +39,8 @@ func newMachine(t *testing.T) *machinev1.Machine {
 func TestNilClusterScope(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m := newMachine(t)
 	params := MachineScopeParams{AzureClients: AzureClients{}, Cluster: nil, CoreClient: nil, Machine: m, Client: fake.NewSimpleClientset(m).MachineV1beta1()}
 	_, err := NewMachineScope(params)
@@ -43,6 +49,8 @@ func TestNilClusterScope(t *testing.T) {
 	}
 }
 func TestCredentialsSecretSuccess(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	credentialsSecret := &corev1.Secret{ObjectMeta: metav1.ObjectMeta{Name: "testCredentials", Namespace: "dummyNamespace"}, Data: map[string][]byte{"azure_subscription_id": []byte("dummySubID"), "azure_client_id": []byte("dummyClientID"), "azure_client_secret": []byte("dummyClientSecret"), "azure_tenant_id": []byte("dummyTenantID"), "azure_resourcegroup": []byte("dummyResourceGroup"), "azure_region": []byte("dummyRegion"), "azure_resource_prefix": []byte("dummyClusterName")}}
@@ -67,10 +75,14 @@ func TestCredentialsSecretSuccess(t *testing.T) {
 func testCredentialFields(credentialsSecret *corev1.Secret) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	scope := &Scope{Cluster: &clusterv1.Cluster{}, ClusterConfig: &providerv1.AzureClusterProviderSpec{}}
 	return updateScope(controllerfake.NewFakeClient(credentialsSecret), &corev1.SecretReference{Name: "testCredentials", Namespace: "dummyNamespace"}, scope)
 }
 func TestCredentialsSecretFailures(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	credentialsSecret := &corev1.Secret{ObjectMeta: metav1.ObjectMeta{Name: "testCredentials", Namespace: "dummyNamespace"}, Data: map[string][]byte{}}

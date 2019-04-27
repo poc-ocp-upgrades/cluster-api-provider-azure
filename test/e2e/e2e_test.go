@@ -18,6 +18,8 @@ type Clients struct {
 func TestMasterMachineCreated(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	kubeConfig := os.Getenv("KUBE_CONFIG")
 	if kubeConfig == "" {
 		t.Skip("KUBE_CONFIG environment variable is not set")
@@ -44,6 +46,8 @@ func TestMasterMachineCreated(t *testing.T) {
 	}
 }
 func createTestClients(kubeConfig string) (*Clients, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	kubeClient, err := NewKubeClient(kubeConfig)

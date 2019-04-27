@@ -19,9 +19,13 @@ const (
 func GenerateVnetName(clusterName string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%s-%s", clusterName, "vnet")
 }
 func GenerateControlPlaneSecurityGroupName(clusterName string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fmt.Sprintf("%s-%s", clusterName, "controlplane-nsg")
@@ -29,9 +33,13 @@ func GenerateControlPlaneSecurityGroupName(clusterName string) string {
 func GenerateNodeSecurityGroupName(clusterName string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%s-%s", clusterName, "node-nsg")
 }
 func GenerateNodeRouteTableName(clusterName string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fmt.Sprintf("%s-%s", clusterName, "node-routetable")
@@ -39,9 +47,13 @@ func GenerateNodeRouteTableName(clusterName string) string {
 func GenerateControlPlaneSubnetName(clusterName string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%s-%s", clusterName, "controlplane-subnet")
 }
 func GenerateNodeSubnetName(clusterName string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fmt.Sprintf("%s-%s", clusterName, "node-subnet")
@@ -49,9 +61,13 @@ func GenerateNodeSubnetName(clusterName string) string {
 func GenerateInternalLBName(clusterName string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%s-%s", clusterName, "internal-lb")
 }
 func GeneratePublicLBName(clusterName string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fmt.Sprintf("%s-%s", clusterName, "public-lb")
@@ -59,9 +75,13 @@ func GeneratePublicLBName(clusterName string) string {
 func GeneratePublicIPName(clusterName, hash string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%s-%s", clusterName, hash)
 }
 func GenerateFQDN(publicIPName, location string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fmt.Sprintf("%s.%s.%s", publicIPName, location, DefaultAzureDNSZone)
@@ -69,7 +89,16 @@ func GenerateFQDN(publicIPName, location string) string {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

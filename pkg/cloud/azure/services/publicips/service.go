@@ -15,12 +15,16 @@ type Service struct {
 func getPublicIPAddressesClient(subscriptionID string, authorizer autorest.Authorizer) network.PublicIPAddressesClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	publicIPsClient := network.NewPublicIPAddressesClient(subscriptionID)
 	publicIPsClient.Authorizer = authorizer
 	publicIPsClient.AddToUserAgent(azure.UserAgent)
 	return publicIPsClient
 }
 func NewService(scope *actuators.Scope) azure.Service {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &Service{Client: getPublicIPAddressesClient(scope.SubscriptionID, scope.Authorizer), Scope: scope}

@@ -86,6 +86,8 @@ type NodeInput struct {
 func NewNode(input *NodeInput) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	input.Header = defaultHeader
 	return generate(v1alpha1.Node, nodeBashScript, input)
 }

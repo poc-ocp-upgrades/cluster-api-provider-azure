@@ -21,6 +21,8 @@ type ScopeParams struct {
 func NewScope(params ScopeParams) (*Scope, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if params.Cluster == nil {
 		return &Scope{AzureClients: params.AzureClients, Cluster: &clusterv1.Cluster{}, ClusterClient: nil, ClusterConfig: &v1alpha1.AzureClusterProviderSpec{}, ClusterStatus: &v1alpha1.AzureClusterProviderStatus{}, Context: context.Background()}, nil
 	}
@@ -61,9 +63,13 @@ type Scope struct {
 func (s *Scope) Network() *v1alpha1.Network {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &s.ClusterStatus.Network
 }
 func (s *Scope) Vnet() *v1alpha1.VnetSpec {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &s.ClusterConfig.NetworkSpec.Vnet
@@ -71,9 +77,13 @@ func (s *Scope) Vnet() *v1alpha1.VnetSpec {
 func (s *Scope) Subnets() v1alpha1.Subnets {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.ClusterConfig.NetworkSpec.Subnets
 }
 func (s *Scope) SecurityGroups() map[v1alpha1.SecurityGroupRole]*v1alpha1.SecurityGroup {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return s.ClusterStatus.Network.SecurityGroups
@@ -81,9 +91,13 @@ func (s *Scope) SecurityGroups() map[v1alpha1.SecurityGroupRole]*v1alpha1.Securi
 func (s *Scope) Name() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.Cluster.Name
 }
 func (s *Scope) Namespace() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return s.Cluster.Namespace
@@ -91,9 +105,13 @@ func (s *Scope) Namespace() string {
 func (s *Scope) Location() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.ClusterConfig.Location
 }
 func (s *Scope) storeClusterConfig(cluster *clusterv1.Cluster) (*clusterv1.Cluster, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ext, err := v1alpha1.EncodeClusterSpec(s.ClusterConfig)
@@ -106,6 +124,8 @@ func (s *Scope) storeClusterConfig(cluster *clusterv1.Cluster) (*clusterv1.Clust
 func (s *Scope) storeClusterStatus(cluster *clusterv1.Cluster) (*clusterv1.Cluster, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ext, err := v1alpha1.EncodeClusterStatus(s.ClusterStatus)
 	if err != nil {
 		return nil, err
@@ -114,6 +134,8 @@ func (s *Scope) storeClusterStatus(cluster *clusterv1.Cluster) (*clusterv1.Clust
 	return s.ClusterClient.UpdateStatus(cluster)
 }
 func (s *Scope) Close() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if s.ClusterClient == nil {

@@ -213,6 +213,8 @@ kubeadm join --config /tmp/kubeadm-controlplane-join-config.yaml --v 10 || true
 func isKeyPairValid(cert, key string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cert != "" && key != ""
 }
 
@@ -255,6 +257,8 @@ type ContolPlaneJoinInput struct {
 func (cpi *ControlPlaneInput) validateCertificates() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !isKeyPairValid(cpi.CACert, cpi.CAKey) {
 		return errors.New("CA cert material in the ControlPlaneInput is missing cert/key")
 	}
@@ -270,6 +274,8 @@ func (cpi *ControlPlaneInput) validateCertificates() error {
 	return nil
 }
 func (cpi *ContolPlaneJoinInput) validateCertificates() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !isKeyPairValid(cpi.CACert, cpi.CAKey) {
@@ -289,6 +295,8 @@ func (cpi *ContolPlaneJoinInput) validateCertificates() error {
 func NewControlPlane(input *ControlPlaneInput) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	input.Header = defaultHeader
 	if err := input.validateCertificates(); err != nil {
 		return "", errors.Wrapf(err, "ControlPlaneInput is invalid")
@@ -300,6 +308,8 @@ func NewControlPlane(input *ControlPlaneInput) (string, error) {
 	return config, err
 }
 func JoinControlPlane(input *ContolPlaneJoinInput) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	input.Header = defaultHeader

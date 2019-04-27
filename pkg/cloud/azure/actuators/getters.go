@@ -13,6 +13,8 @@ type ScopeGetterFunc func(params ScopeParams) (*Scope, error)
 func (f ScopeGetterFunc) GetScope(params ScopeParams) (*Scope, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return f(params)
 }
 
@@ -22,6 +24,8 @@ type MachineScopeGetter interface {
 type MachineScopeGetterFunc func(params MachineScopeParams) (*MachineScope, error)
 
 func (f MachineScopeGetterFunc) GetMachineScope(params MachineScopeParams) (*MachineScope, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return f(params)

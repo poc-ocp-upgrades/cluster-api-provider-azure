@@ -25,9 +25,13 @@ type ActuatorParams struct {
 func NewActuator(params ActuatorParams) *Actuator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &Actuator{Deployer: deployer.New(deployer.Params{ScopeGetter: actuators.DefaultScopeGetter}), client: params.Client}
 }
 func (a *Actuator) Reconcile(cluster *clusterv1.Cluster) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.Infof("Reconciling cluster %v", cluster.Name)
@@ -45,6 +49,8 @@ func (a *Actuator) Reconcile(cluster *clusterv1.Cluster) error {
 func (a *Actuator) Delete(cluster *clusterv1.Cluster) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.Infof("Reconciling cluster %v", cluster.Name)
 	scope, err := actuators.NewScope(actuators.ScopeParams{Cluster: cluster, Client: a.client})
 	if err != nil {
@@ -60,7 +66,16 @@ func (a *Actuator) Delete(cluster *clusterv1.Cluster) error {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

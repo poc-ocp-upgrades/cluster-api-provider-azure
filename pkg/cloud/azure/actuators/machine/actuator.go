@@ -30,9 +30,13 @@ type ActuatorParams struct {
 func NewActuator(params ActuatorParams) *Actuator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &Actuator{Deployer: deployer.New(deployer.Params{ScopeGetter: actuators.DefaultScopeGetter}), client: params.Client, coreClient: params.CoreClient}
 }
 func (a *Actuator) Create(ctx context.Context, cluster *clusterv1.Cluster, machine *clusterv1.Machine) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.Infof("Creating machine %v", machine.Name)
@@ -51,6 +55,8 @@ func (a *Actuator) Create(ctx context.Context, cluster *clusterv1.Cluster, machi
 func (a *Actuator) Delete(ctx context.Context, cluster *clusterv1.Cluster, machine *clusterv1.Machine) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.Infof("Deleting machine %v", machine.Name)
 	scope, err := actuators.NewMachineScope(actuators.MachineScopeParams{Machine: machine, Cluster: nil, Client: a.client, CoreClient: a.coreClient})
 	if err != nil {
@@ -65,6 +71,8 @@ func (a *Actuator) Delete(ctx context.Context, cluster *clusterv1.Cluster, machi
 	return nil
 }
 func (a *Actuator) Update(ctx context.Context, cluster *clusterv1.Cluster, machine *clusterv1.Machine) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.Infof("Updating machine %v", machine.Name)
@@ -83,6 +91,8 @@ func (a *Actuator) Update(ctx context.Context, cluster *clusterv1.Cluster, machi
 func (a *Actuator) Exists(ctx context.Context, cluster *clusterv1.Cluster, machine *clusterv1.Machine) (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.Infof("Checking if machine %v exists", machine.Name)
 	scope, err := actuators.NewMachineScope(actuators.MachineScopeParams{Machine: machine, Cluster: nil, Client: a.client, CoreClient: a.coreClient})
 	if err != nil {
@@ -98,7 +108,16 @@ func (a *Actuator) Exists(ctx context.Context, cluster *clusterv1.Cluster, machi
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

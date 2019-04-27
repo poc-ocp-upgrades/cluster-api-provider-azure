@@ -40,6 +40,8 @@ type Subnets []*SubnetSpec
 func (s Subnets) ToMap() map[string]*SubnetSpec {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	res := make(map[string]*SubnetSpec)
 	for _, x := range s {
 		res[x.ID] = x

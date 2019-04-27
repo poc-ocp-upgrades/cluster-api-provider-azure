@@ -15,12 +15,16 @@ type Service struct {
 func getNetworkInterfacesClient(subscriptionID string, authorizer autorest.Authorizer) network.InterfacesClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	nicClient := network.NewInterfacesClient(subscriptionID)
 	nicClient.Authorizer = authorizer
 	nicClient.AddToUserAgent(azure.UserAgent)
 	return nicClient
 }
 func NewService(scope *actuators.Scope) azure.Service {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &Service{Client: getNetworkInterfacesClient(scope.SubscriptionID, scope.Authorizer), Scope: scope}

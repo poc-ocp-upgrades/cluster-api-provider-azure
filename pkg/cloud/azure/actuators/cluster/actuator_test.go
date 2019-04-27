@@ -13,9 +13,13 @@ import (
 func newFakeScope() *actuators.Scope {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &actuators.Scope{Context: context.Background(), Cluster: &clusterv1.Cluster{ObjectMeta: metav1.ObjectMeta{Name: "dummyClusterName"}}, ClusterConfig: &v1alpha1.AzureClusterProviderSpec{}, ClusterStatus: &v1alpha1.AzureClusterProviderStatus{}}
 }
 func TestReconcileSuccess(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fakeSuccessSvc := &azure.FakeSuccessService{}
@@ -35,6 +39,8 @@ func TestReconcileSuccess(t *testing.T) {
 func TestReconcileFailure(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fakeSuccessSvc := &azure.FakeSuccessService{}
 	fakeFailureSvc := &azure.FakeFailureService{}
 	fakeReconciler := &Reconciler{scope: newFakeScope(), certificatesSvc: fakeFailureSvc, groupsSvc: fakeSuccessSvc, vnetSvc: fakeSuccessSvc, securityGroupSvc: fakeFailureSvc, routeTableSvc: fakeSuccessSvc, subnetsSvc: fakeSuccessSvc, internalLBSvc: fakeFailureSvc, publicIPSvc: fakeSuccessSvc, publicLBSvc: fakeSuccessSvc}
@@ -46,6 +52,8 @@ func TestReconcileFailure(t *testing.T) {
 	}
 }
 func TestPublicIPNonEmpty(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fakeSuccessSvc := &azure.FakeSuccessService{}
@@ -65,6 +73,8 @@ func TestPublicIPNonEmpty(t *testing.T) {
 	}
 }
 func TestServicesCreatedCount(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cache := make(map[string]int)

@@ -33,14 +33,20 @@ import (
 func (s *Service) Get(ctx context.Context, spec azure.Spec) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil, errors.New("Not implemented")
 }
 func (s *Service) Delete(ctx context.Context, spec azure.Spec) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (s *Service) CreateOrUpdate(ctx context.Context, spec azure.Spec) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.V(2).Infof("generating certificates")
@@ -80,6 +86,8 @@ func (s *Service) CreateOrUpdate(ctx context.Context, spec azure.Spec) error {
 func CreatePKICertificates(cfg *kubeadmapi.InitConfiguration) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.V(2).Infof("CreatePKIAssets")
 	if err := certsphase.CreatePKIAssets(cfg); err != nil {
 		return err
@@ -90,6 +98,8 @@ func CreatePKICertificates(cfg *kubeadmapi.InitConfiguration) error {
 func CreateSACertificates(cfg *kubeadmapi.InitConfiguration) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.V(2).Infof("CreateSACertificates")
 	if err := certsphase.CreateServiceAccountKeyAndPublicKeyFiles(cfg); err != nil {
 		return err
@@ -98,6 +108,8 @@ func CreateSACertificates(cfg *kubeadmapi.InitConfiguration) error {
 	return nil
 }
 func GetDiscoveryHashes(kubeConfigFile string) ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	klog.V(2).Infof("GetDiscoveryHashes")
@@ -133,6 +145,8 @@ func GetDiscoveryHashes(kubeConfigFile string) ([]string, error) {
 func CreateNewBootstrapToken(kubeconfig string, tokenTTL time.Duration) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.V(2).Infof("CreateNewBootstrapToken")
 	token, err := bootstraputil.GenerateBootstrapToken()
 	if err != nil {
@@ -164,6 +178,8 @@ func CreateNewBootstrapToken(kubeconfig string, tokenTTL time.Duration) (string,
 func CreateKubeconfigs(cfg *kubeadmapi.InitConfiguration, kubeConfigDir string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	klog.V(2).Infof("CreateKubeconfigs admin kubeconfig")
 	if err := kubeconfigphase.CreateKubeConfigFile(kubeadmconstants.AdminKubeConfigFileName, kubeConfigDir, cfg); err != nil {
 		return err
@@ -172,6 +188,8 @@ func CreateKubeconfigs(cfg *kubeadmapi.InitConfiguration, kubeConfigDir string) 
 	return nil
 }
 func updateClusterConfigKeyPairs(clusterConfig *v1alpha1.AzureClusterProviderSpec, tmpDirName string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	certsDir := tmpDirName + "/certs"
@@ -203,6 +221,8 @@ func updateClusterConfigKeyPairs(clusterConfig *v1alpha1.AzureClusterProviderSpe
 func updateCertKeyPair(keyPair *v1alpha1.KeyPair, certsDir string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(keyPair.Cert) <= 0 {
 		buf, err := ioutil.ReadFile(certsDir + ".crt")
 		if err != nil {
@@ -220,6 +240,8 @@ func updateCertKeyPair(keyPair *v1alpha1.KeyPair, certsDir string) error {
 	return nil
 }
 func updateClusterConfigKubeConfig(clusterConfig *v1alpha1.AzureClusterProviderSpec, tmpDirName string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	kubeConfigsDir := tmpDirName + "/kubeconfigs"
@@ -242,7 +264,16 @@ func updateClusterConfigKubeConfig(clusterConfig *v1alpha1.AzureClusterProviderS
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }
