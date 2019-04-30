@@ -1,19 +1,3 @@
-/*
-Copyright 2019 The Kubernetes Authors.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package config
 
 import (
@@ -22,18 +6,7 @@ import (
 )
 
 const (
-	// TODO: Make config Azure specific
-	// TODO: Add cloud provider config back to ClusterConfiguration apiServer once we handle Azure AAD auth (either via creds or MSI)
-	/*
-		extraArgs:
-			cloud-provider: azure
-	*/
-	// TODO: Add cloud provider config back to InitConfiguration nodeRegistration once we handle Azure AAD auth (either via creds or MSI)
-	/*
-	  kubeletExtraArgs:
-	    cloud-provider: azure
-	*/
-	controlPlaneBashScript = `{{.Header}}
+	controlPlaneBashScript	= `{{.Header}}
 
 set -eox
 
@@ -145,8 +118,7 @@ apt-mark hold kubelet kubeadm kubectl
 
 kubeadm init --config /tmp/kubeadm.yaml --v 10 || true
 `
-
-	controlPlaneJoinBashScript = `{{.Header}}
+	controlPlaneJoinBashScript	= `{{.Header}}
     
 set -eox
 
@@ -239,113 +211,101 @@ kubeadm join --config /tmp/kubeadm-controlplane-join-config.yaml --v 10 || true
 )
 
 func isKeyPairValid(cert, key string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return cert != "" && key != ""
 }
 
-// ControlPlaneInput defines the context to generate a controlplane instance user data.
 type ControlPlaneInput struct {
 	baseConfig
-
-	CACert              string
-	CAKey               string
-	EtcdCACert          string
-	EtcdCAKey           string
-	FrontProxyCACert    string
-	FrontProxyCAKey     string
-	SaCert              string
-	SaKey               string
-	LBAddress           string
-	InternalLBAddress   string
-	ClusterName         string
-	PodSubnet           string
-	ServiceDomain       string
-	ServiceSubnet       string
-	KubernetesVersion   string
-	CloudProviderConfig string
+	CACert			string
+	CAKey			string
+	EtcdCACert		string
+	EtcdCAKey		string
+	FrontProxyCACert	string
+	FrontProxyCAKey		string
+	SaCert			string
+	SaKey			string
+	LBAddress		string
+	InternalLBAddress	string
+	ClusterName		string
+	PodSubnet		string
+	ServiceDomain		string
+	ServiceSubnet		string
+	KubernetesVersion	string
+	CloudProviderConfig	string
 }
-
-// ContolPlaneJoinInput defines context to generate controlplane instance user data for controlplane node join.
 type ContolPlaneJoinInput struct {
 	baseConfig
-
-	CACertHash          string
-	CACert              string
-	CAKey               string
-	EtcdCACert          string
-	EtcdCAKey           string
-	FrontProxyCACert    string
-	FrontProxyCAKey     string
-	SaCert              string
-	SaKey               string
-	BootstrapToken      string
-	LBAddress           string
-	KubernetesVersion   string
-	CloudProviderConfig string
+	CACertHash		string
+	CACert			string
+	CAKey			string
+	EtcdCACert		string
+	EtcdCAKey		string
+	FrontProxyCACert	string
+	FrontProxyCAKey		string
+	SaCert			string
+	SaKey			string
+	BootstrapToken		string
+	LBAddress		string
+	KubernetesVersion	string
+	CloudProviderConfig	string
 }
 
 func (cpi *ControlPlaneInput) validateCertificates() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !isKeyPairValid(cpi.CACert, cpi.CAKey) {
 		return errors.New("CA cert material in the ControlPlaneInput is missing cert/key")
 	}
-
 	if !isKeyPairValid(cpi.EtcdCACert, cpi.EtcdCAKey) {
 		return errors.New("ETCD CA cert material in the ControlPlaneInput is missing cert/key")
 	}
-
 	if !isKeyPairValid(cpi.FrontProxyCACert, cpi.FrontProxyCAKey) {
 		return errors.New("FrontProxy CA cert material in ControlPlaneInput is missing cert/key")
 	}
-
 	if !isKeyPairValid(cpi.SaCert, cpi.SaKey) {
 		return errors.New("ServiceAccount cert material in ControlPlaneInput is missing cert/key")
 	}
-
 	return nil
 }
-
 func (cpi *ContolPlaneJoinInput) validateCertificates() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !isKeyPairValid(cpi.CACert, cpi.CAKey) {
 		return errors.New("CA cert material in the ContolPlaneJoinInput is missing cert/key")
 	}
-
 	if !isKeyPairValid(cpi.EtcdCACert, cpi.EtcdCAKey) {
 		return errors.New("ETCD cert material in the ContolPlaneJoinInput is missing cert/key")
 	}
-
 	if !isKeyPairValid(cpi.FrontProxyCACert, cpi.FrontProxyCAKey) {
 		return errors.New("FrontProxy cert material in ContolPlaneJoinInput is missing cert/key")
 	}
-
 	if !isKeyPairValid(cpi.SaCert, cpi.SaKey) {
 		return errors.New("ServiceAccount cert material in ContolPlaneJoinInput is missing cert/key")
 	}
-
 	return nil
 }
-
-// NewControlPlane returns the user data string to be used on a controlplane instance.
 func NewControlPlane(input *ControlPlaneInput) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	input.Header = defaultHeader
 	if err := input.validateCertificates(); err != nil {
 		return "", errors.Wrapf(err, "ControlPlaneInput is invalid")
 	}
-
 	config, err := generate(v1alpha1.ControlPlane, controlPlaneBashScript, input)
 	if err != nil {
 		return "", errors.Wrapf(err, "failed to generate user data for new control plane machine")
 	}
-
 	return config, err
 }
-
-// JoinControlPlane returns the user data string to be used on a new contrplplane instance.
 func JoinControlPlane(input *ContolPlaneJoinInput) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	input.Header = defaultHeader
-
 	if err := input.validateCertificates(); err != nil {
 		return "", errors.Wrapf(err, "ControlPlaneInput is invalid")
 	}
-
 	config, err := generate(v1alpha1.ControlPlane, controlPlaneJoinBashScript, input)
 	if err != nil {
 		return "", errors.Wrapf(err, "failed to generate user data for machine joining control plane")
